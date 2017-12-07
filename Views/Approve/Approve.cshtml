@@ -1,0 +1,232 @@
+﻿@model IEnumerable<FirstAppNetCore.Models.FeedModel>
+@{
+    ViewData["Title"] = "Approve";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Construction is ultimate responsive construction html template which include 3 homepage demos.">
+    <title>News24 - Responsive News Template</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <!-- themify Icon CSS -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate.min.css">
+    <!-- Elegant Icons CSS -->
+    <link rel="stylesheet" href="css/elegant-line-icons.css">
+    <!-- Bootsrtap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="css/meanmenu.css">
+    <!-- Swipebox CSS -->
+    <link rel="stylesheet" href="css/swipebox.min.css">
+    <!--FontAewsome CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/node_modules/readmore-js/readmore.min.js"></script>
+    <script src="~/js/approve.js"></script>
+</head>
+
+<style type="text/css">
+    .thumbs {
+        background-color: darkgrey;
+        width: 50px;
+        height: 50px;
+        border-radius: 20px;
+        padding-left: 5px;
+        padding-top: 2px;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+    .thumbsl:hover {
+        transition: 0.2s;
+        background-color: green;
+        position: relative;
+    }
+
+    .thumbsd:hover {
+        transition: 0.2s;
+        background-color: red;
+        position: relative;
+    }
+
+    .approveBox {
+        display: none;
+        background-color: green;
+        opacity: 0.8;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        font-size: 40px;
+        line-height: 300px;
+        text-align: center;
+        vertical-align: middle;
+        color: black;
+    }
+
+    .disapproveBox {
+        display: none;
+        background-color: red;
+        opacity: 0.8;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        font-size: 40px;
+        line-height: 300px;
+        text-align: center;
+        vertical-align: middle;
+        color: black;
+    }
+
+    .guial {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        margin-left: -35px;
+        margin-top: 120px;
+        position: fixed;
+        display: inline-block;
+    }
+
+    .guial2
+    {
+        margin-top: 20px;
+        display:none;
+    }
+
+    @@media only screen and (max-device-width: 769px) {
+        .guial2 {
+            display: block;
+        }
+    }
+
+
+</style>
+
+@{ int tt = 0;
+
+    <script>
+        var jsonNews = [];
+        
+    </script>
+    <div id="b" class="container teste" style="border-left:2px solid #757575;background-color:black">
+        <div class="row">
+            <div id="guiaL" class="fz-30 guial">Latest</div>
+            <div id="guiaL2" class="fz-30 guial2">Latest</div>
+            @foreach (var item in Model)
+            {
+                <div id="c-@tt" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="margin-top:30px;">
+                    <div class="grid-posts">
+                        <div style="margin-bottom:10px;box-shadow: 10px 10px 5px #888888;border-radius:0px 0px 20px 20px">
+                            <div class="grid-post">
+                                <div id="approve-@tt" class="approveBox">Approved</div>
+                                <div id="disapprove-@tt" class="disapproveBox">Disapproved</div>
+                                <a href="#" class="img-crop"><img id="img-@tt" src="@item.Img" style="margin-top:-30px;float:left;width: 100%; height: 200px;"></a>
+                                <div id="a-@tt" class="post-info padding-15 ptb-20 bd-grey">
+                                    <h4 id="title-@tt" class="mb-15 fw-6"><a id="link-@tt" target="_blank" href="@item.Link" class="text-dark">@item.Title</a></h4>
+                                    <h6 id="description-@tt" class="text-dark">@Html.Raw(item.Description)</h6>
+                                    <h6 class="text-dark">@item.Fonte</h6>
+                                    <span id="date-@tt" class="date"><i class="ti-timer"></i>@item.PublishDate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-offset-4">
+                            <a id="thumbs-up-@tt" href="javascript:;"><img class="thumbsl" style="margin-right:5px;background-color: darkgrey;width: 50px;height: 50px;border-radius: 18px;padding: 5px;transition: 0.3s;display: inline-block;" src="~/images/thumb-up.png" /></a>
+                            <a id="thumbs-down-@tt" href="javascript:;"><img class="thumbsd" style="margin-left:5px;background-color: darkgrey;width: 50px;height: 50px;border-radius: 18px;padding: 5px;transition: 0.3s;display: inline-block;" src="~/images/thumb-down.png" /></a>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $('#thumbs-up-@tt > img').mouseenter(function () {
+                        $('#thumbs-up-@tt > img').attr('src', '/images/thumb-up-green.png');
+                    });
+
+                    $('#thumbs-up-@tt > img').mouseout(function () {
+                        $('#thumbs-up-@tt > img').attr('src','/images/thumb-up.png');
+                    });
+
+                    $('#thumbs-down-@tt > img').mouseenter(function () {
+                        $('#thumbs-down-@tt > img').attr('src','/images/thumb-down-red.png');
+                    });
+
+                    $('#thumbs-down-@tt > img').mouseout(function () {
+                        $('#thumbs-down-@tt > img').attr('src', '/images/thumb-down.png');
+                    });
+
+
+                    $('#a-@tt').readmore({
+                        speed: 200,
+                        collapsedHeight: 152,
+                        moreLink: '<a style="color:gray" href="#">More</a>',
+                        lessLink: '<a style="color:gray" href="#">Less</a>'
+                    });
+
+                    $('#thumbs-up-@tt').click(function () {
+
+                        item = {}
+                        item["title"] = $('#title-@tt').text();;
+                        item["description"] = $('#description-@tt').text();
+                        item["link"] = $('#link-@tt').attr('href');
+                        item["img"] = $('#img-@tt').attr('src');
+                        item["publishdate"] = $('#date-@tt').text();
+                        item["status"] = true;
+
+                        jsonNews.push(item);
+
+                        $('#approve-@tt').delay(100).fadeIn();
+                        $('#approve-@tt').delay(800).fadeOut();
+                        $('#c-@tt').delay(800).fadeOut();
+                    });
+
+                    $('#thumbs-down-@tt').click(function () {
+
+                        item = {}
+                        item["title"] = $('#title-@tt').text();;
+                        item["description"] = $('#description-@tt').text();
+                        item["link"] = $('#link-@tt').attr('href');
+                        item["img"] = $('#img-@tt').attr('src');
+                        item["publishdate"] = $('#date-@tt').text();
+                        item["status"] = false;
+
+                        jsonNews.push(item);
+
+                        $('#disapprove-@tt').delay(100).fadeIn();
+                        $('#disapprove-@tt').delay(800).fadeOut();
+                        $('#c-@tt').delay(800).fadeOut();
+                    });
+
+                    function save() {
+                        $.ajax({
+                            url: '/approve/savenews',
+                            type: 'POST',
+                            data: JSON.stringify(jsonNews),
+                            cache: false,
+                            contentType: "application/json",
+                            success: function (result) {
+                                console.log(result);
+                            }
+                        });
+                    }
+                </script>
+
+                tt++;
+            }
+        </div>
+    </div>
+    <div id="fim"></div>
+
+    <button id="btnSave" class="col-xs-offset-3 btn btn-block btn-success" onclick="save()" style="width:50%;height:80px;margin-top:50px;">Save News</button>
+}
